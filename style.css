@@ -1,0 +1,390 @@
+/* ----------------- BASE ----------------- */
+/* Crypto Matrix FUN © 2025 Bao Quoc Tran */
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  font-family: 'Courier New', monospace;
+  color: white;
+  flex-direction: column;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#header-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+#header-panel h1 {
+  margin: 0 0 4px 0;
+  font-size: 32px;
+  color: #FFD700;
+}
+
+#scoreboard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 18px;
+}
+
+/* Score row */
+.score-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;      /* không xuống dòng */
+  gap: 10px;
+}
+
+.coinLabel {
+  font-weight: bold;
+  width: 50px;            /* cố định để label thẳng hàng */
+  white-space: nowrap;
+}
+
+.coinScore {
+  font-weight: bold;
+  width: 70px;            /* đủ chứa số lớn */
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Buttons */
+.eventBtn {
+  padding: 5px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;    /* chữ không wrap */
+}
+
+#helperBtn { background: #FFD700; color: black; }
+#dogeBtn { background: #A0522D; color: white; }
+#xxxBtn { background: #32CD32; color: black; }
+#charityBtn { background: #800080; color: white; }
+#vitalikBtn { background: #1E90FF; color: white; }
+
+/* Flash chữ coin - XXX Event */
+.flash-green { animation: flashGreen 0.5s alternate infinite; }
+@keyframes flashGreen { from { color: #32CD32; } to { color: #FFFFFF; } }
+
+/* Flash số điểm - Charity Event */
+.flash-purple { animation: flashPurple 0.5s alternate infinite; }
+@keyframes flashPurple { from { color: #DA70D6; } to { color: #FFFFFF; } }
+
+/* Main container */
+#main-container { display: flex; flex-direction: row; align-items: flex-start; justify-content: flex-start; gap: 20px; }
+
+#left-panel { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 30px; }
+#bearGif { width: 400px; height: auto; margin: 0; }
+#instructions { margin-top: 20px; font-size: 14px; text-align: left; color: white; }
+#instructions h2 { margin: 0 0 10px 0; font-size: 18px; color: white; }
+#instructions p { margin: 5px 0; font-size: 14px; }
+
+/* Canvas */
+#canvas-wrapper { position: relative; width: 240px; height: 480px; }
+canvas { width: 240px; height: 480px; background: #111; border: 2px solid white; display: block; }
+#startBtn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; font-size: 16px; cursor: pointer; z-index: 10; }
+
+/* Overlays GIFs */
+#dogeGif, #peterGoldGif, #vitalikGif {
+  position: absolute;
+  width: 220px;
+  height: auto;
+  display: none;
+  z-index: 30;
+}
+
+/* Peter Gold GIF giữ nguyên vị trí cũ */
+#peterGoldGif { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+
+/* Doge Run GIF */
+#dogeGif { bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); }
+
+/* Doge Cute GIF */
+#dogeCute {
+  position: absolute;
+  bottom: 50px;
+  right: -140px;
+  width: 120px;
+  height: auto;
+  display: none;
+  z-index: 15;
+}
+
+/* Inverse Cramer GIF */
+#inverseCramerGif {
+  position: absolute;
+  top: 0px;
+  right: -140px;
+  width: 120px;
+  height: auto;
+  display: none;
+  z-index: 15;
+}
+
+/* Vitalik GIF: căn giữa Doge Cute và Inverse Cramer */
+#vitalikGif {
+  bottom: 300px; /* nằm giữa Doge Cute và Inverse Cramer */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: auto;
+  display: none;
+  z-index: 35;
+}
+
+/* Satoshi GIF */
+#satoshiGif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: auto;
+  display: none;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Michael GIF */
+#michaelGif {
+  position: absolute;
+  bottom: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 210px;
+  height: auto;
+  display: none;
+  z-index: 101;
+}
+
+/* Help Message */
+#helpMessage {
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #FFD700;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  display: none;
+  z-index: 102;
+  pointer-events: none;
+}
+
+/* Game Over Overlay */
+#gameOverOverlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex; justify-content: center; align-items: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 20;
+  display: none;
+}
+
+#gameOverOverlay button { padding: 10px 20px; font-size: 18px; cursor: pointer; }
+
+#control-pad {
+  display: none !important;
+}
+
+/* ---------- iPhone 6 & small screen touch helpers ---------- */
+/* show control-pad only on mobile; ensure large touch targets and disable tap highlight */
+#control-pad { display: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.mobileControl { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+@media screen and (max-width: 500px) {
+  /* Ensure the mobile two-column wrapper is active (if you used #mobile-two-col-wrapper) */
+  #mobile-two-col-wrapper { display:flex; flex-direction:row; width:100%; gap:8px; box-sizing:border-box; padding:8px; align-items:flex-start; }
+
+  /* Left column 1/3, right 2/3 */
+  #left-col { width: 33.3333%; align-items:flex-start; box-sizing:border-box; padding-right:6px; }
+  #right-col { width: 66.6666%; box-sizing:border-box; padding-left:6px; }
+
+  /* Canvas sizing: keep internal resolution but scale to column width */
+  #canvas-wrapper { width:100%; max-width:260px; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; }
+  #canvas-wrapper canvas { width: 100%; height: auto; aspect-ratio: 1/2; }
+
+  /* Control pad: visible, one row, each button at least 44-48px high */
+  #control-pad {
+    display: flex !important;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 260px; /* match canvas width */
+    gap: 8px;
+    margin-top: 6px;
+    box-sizing: border-box;
+  }
+  #control-pad .mobileControl {
+    flex: 1 1 0;
+    min-height: 48px;
+    padding: 10px 8px;
+    font-size: 18px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.08);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* larger hit area for left/right/down/rotate/pause */
+  #control-pad .mobileControl::after { content: ''; display:block; height: 0; width: 0; }
+
+  /* prevent page zoom on double tap on these buttons (helpful) */
+  #control-pad .mobileControl { touch-action: manipulation; }
+
+  /* remove desktop overlays if necessary (they are absolute) */
+  #canvas-wrapper > img { display: none; }
+
+  /* left column items left-edge alignment */
+  #left-col .left-inner, #left-col .left-inner * { box-sizing: border-box; text-align: left; }
+}
+
+/* Control pad must be above all gif overlays */
+#control-pad {
+  position: relative;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+
+#control-pad .mobileControl {
+  pointer-events: auto !important;
+}
+
+#canvas-wrapper img { pointer-events: none !important; }
+
+
+@media screen and (max-width: 500px) {
+  #header-panel h1 {
+    font-size: calc(32px * 0.8);
+  }
+  #scoreboard {
+    transform: scale(0.8);
+    transform-origin: top left;
+  }
+  .score-row {
+    gap: 6px;
+  }
+  .coinLabel {
+    width: calc(50px * 0.8);
+    font-size: calc(18px * 0.8);
+  }
+  .coinScore {
+    width: calc(70px * 0.8);
+    font-size: calc(18px * 0.8);
+  }
+  .eventBtn {
+    padding: calc(5px * 0.7) calc(14px * 0.8);
+    font-size: calc(14px * 0.8);
+    border-radius: calc(6px * 0.8);
+  }
+  #bearGif {
+    width: calc(400px * 0.7 * 0.4); /* = 140px */
+    height: auto;
+  }
+  #instructions {
+    display: none !important;
+  }
+  #left-panel {
+    margin-bottom: 6px; /* giảm từ 30px → 6px hoặc 0 tùy bạn */
+  }
+  #canvas-wrapper {
+    transform: scale(0.95);
+    transform-origin: top center;
+  }
+  #main-container {
+    gap: 20px;
+  }
+  #peterGoldGif {
+    width: calc(220px * 0.75); /* = 154px */
+    height: auto;
+    right: -90px !important;   /* chỉnh -5px hoặc 0 tùy bạn muốn sát hơn */
+    left: auto !important;
+  }
+  
+}
+
+@media screen and (max-width: 500px) {
+
+  /* Vitalik */
+  #vitalikGif {
+    width: calc(400px * 0.45); /* chỉnh số 400px tuỳ ý */
+    height: auto;
+  }
+
+  /* Doge Run */
+  #dogeGif {
+    width: calc(350px * 0.40);
+    height: auto;
+    right: -70px !important; 
+    left: auto !important;
+  }
+
+  /* Satoshi */
+  #satoshiGif {
+    width: calc(300px * 0.80);
+    height: auto;
+  }
+
+  /* Doge Cute */
+  #dogeCute {
+    width: calc(280px * 0.45);
+    height: auto;
+    left: -140px !important;     /* chỉnh trái/phải */
+    right: auto !important;
+    top: 400px !important;     /* chỉnh lên/xuống */
+    bottom: auto !important;
+  }
+
+  /* Inverse Cramer */
+  #inverseCramerGif {
+    width: calc(260px * 0.45);
+    height: auto;
+    left: -140px !important;     /* chỉnh trái/phải */
+    right: auto !important;
+    top: 150px !important;     /* chỉnh lên/xuống */
+    bottom: auto !important;
+  }
+
+  /* Michael Saylor */
+  #michaelGif {
+    width: calc(400px * 0.50);
+    height: auto;
+  }
+
+}
+
+#mobileWinHint {
+  text-align: center;
+  font-weight: bold;
+  color: gold;
+  font-size: 12px;
+  margin-top: 10px;
+  display: none; /* ẨN mặc định */
+}
+
+/* Chỉ hiện khi mobile */
+@media (max-width: 600px) {
+  #mobileWinHint {
+    display: block;
+  }
+}
+

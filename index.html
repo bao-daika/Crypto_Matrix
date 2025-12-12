@@ -1,0 +1,100 @@
+<!--Crypto Matrix FUN © 2025 Bao Quoc Tran — All Rights Reserved-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Crypto Matrix</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<div style="display:none;">
+  Crypto Matrix FUN © 2025 Bao Quoc Tran - All Rights Reserved
+</div>
+<body>
+  <div id="wrapper">
+    <div id="header-panel">
+      <h1>Crypto Matrix</h1>
+      <div id="scoreboard">
+        <div class="score-row">
+          <span class="coinLabel">BTC:</span>
+          <span class="coinScore" id="btcScore">0</span>
+          <button class="eventBtn" id="helperBtn">HELP</button>
+        </div>
+        <div class="score-row">
+          <span class="coinLabel">XRP:</span>
+          <span class="coinScore" id="xrpScore">0</span>
+          <button class="eventBtn" id="xxxBtn">XXX</button>
+        </div>
+        <div class="score-row">
+          <span class="coinLabel">SOL:</span>
+          <span class="coinScore" id="solScore">0</span>
+          <button class="eventBtn" id="charityBtn">CHARITY</button>
+        </div>
+        <div class="score-row">
+          <span class="coinLabel">ETH:</span>
+          <span class="coinScore" id="ethScore">0</span>
+          <button class="eventBtn" id="vitalikBtn">VITALIK</button>
+        </div>
+        <div class="score-row">
+          <span class="coinLabel">DOGE:</span>
+          <span class="coinScore" id="dogeScore">0</span>
+          <button class="eventBtn" id="dogeBtn">GÂU GÂU</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="main-container">
+      <div id="left-panel">
+        <img id="bearGif" src="images/bear_dance.gif" alt="Bear" />
+        <p id="mobileWinHint">BTC = 2100 = WIN</p>   <!-- DÒNG BẠN MUỐN -->
+        <div id="instructions">
+          <h2>Instructions :</h2>
+          <p>BTC = 2100 , Satoshi Nakamoto will appear (WIN)</p>
+          <p>Rotate = A / Space & Pause = P</p>
+          <p>Helper = H (cannot use when PeterGold appears)</p>
+          <p>Gâu Gâu = G (cannot use when PeterGold appears)</p>
+          <p>XXX = X </p>
+          <p>Charity = C </p>
+          <p>Vitalik = V </p>
+        </div>
+      </div>
+
+      <div id="canvas-wrapper">
+        <canvas id="gameCanvas" width="240" height="480"></canvas>
+        <div id="helpMessage">MIKE SLAYER saved you!</div>
+        <img id="michaelGif" src="images/michael_saylor.gif" alt="Michael Saylor" />
+        
+        <button id="startBtn">Start Game</button>
+
+        <!-- Overlays/GIFs -->
+        <img id="peterGoldGif" src="images/peter_gold.gif" alt="Peter Gold" />
+        <img id="vitalikGif" src="images/vitalik.gif" alt="Vitalik" />
+        <img id="dogeGif" src="images/doge_run.gif" alt="Doge" />
+        <img id="satoshiGif" src="images/satoshi.gif" alt="Satoshi" />
+        <img id="dogeCute" src="images/doge_cute.gif" alt="Doge Cute" />
+        <img id="inverseCramerGif" src="images/inverse_cramer.gif" alt="Inverse Cramer" />
+
+        <!-- Mobile Control Pad Below Canvas -->
+<div id="control-pad" style="display: flex; justify-content: space-between; gap: 8px; width: 100%; max-width: 240px; margin-top: 10px;">
+  <button id="leftBtn" class="mobileControl">←</button>
+  <button id="downBtn" class="mobileControl">↓</button>
+  <button id="rightBtn" class="mobileControl">→</button>
+  <button id="rotateBtn" class="mobileControl">↻</button>
+  <button id="pauseBtn" class="mobileControl">P</button>
+</div>
+
+
+        <div id="gameOverOverlay">
+          <div>
+            <p>Game Over</p>
+            <button id="restartBtn">Restart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" src="music/background.mp3" loop></audio>
+  <script src="game.js"></script>
+</body>
+</html>
